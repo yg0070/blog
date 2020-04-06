@@ -240,7 +240,7 @@
 <p>修改后保存，刷新配置，重启docker服务</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload 	<span class="comment">//1.加载docker守护进程</span></span><br><span class="line">systemctl restart docker 	<span class="comment">//2.重启docker服务</span></span><br></pre></td></tr></table></figure>
 
-<p>查看已开启的<code>tcp</code>端口中是否有2395，有的话则证明已配置成功。</p>
+<p>查看已开启的<code>tcp</code>端口中是否有2375，有的话则证明已配置成功。</p>
 <p><img src="https://yg0070.github.io/images/image-20200119094948710.png" alt="image-20200119094948710"></p>
 <p>这是<code>docker</code>服务端的配置就完成了，如果没有使用 <code>systemd</code> 工具，自行百度实现方式吧。</p>
 <h3 id="2-2-配置WSL"><a href="#2-2-配置WSL" class="headerlink" title="2.2 配置WSL"></a>2.2 配置WSL</h3><p>此步骤与 1.2 相同，ip地址改为虚拟机ip地址，也可设置成固态ip，然后映射到本机端口，依然使用127.0.0.1</p>
