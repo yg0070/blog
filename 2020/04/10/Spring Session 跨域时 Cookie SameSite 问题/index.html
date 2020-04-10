@@ -6,12 +6,12 @@
   <meta name="author" content="yg0070" />
   
   
-  <title>归档: 2020/1 | Hexo</title>
+  <title>Spring Session 跨域时 Cookie SameSite 问题 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, Theme-AD" />
+    <meta name="keywords" content="spring session,代码,spring,框架,spring session," />
   
 
   
@@ -42,7 +42,7 @@
     welcome: {"enable":false,"interval":30},
     start_time: "2019-12-15",
     passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "yg0070",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
@@ -160,19 +160,80 @@
 </nav>
 <div id="site-process"></div>
     <main>
-      <div class="timeline">
-  <h2 class="timeline-title">归档: 8篇</h2>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2020-04-10
+    </span>
+    
+      <span>
+        | <a href="/categories/spring-session/"><i class="fa fa-bookmark"></i>spring session</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Spring Session 跨域时 Cookie SameSite 问题
+  </h1>
   
+  <article class="passage-article">
+    <p> <code>SameSite</code>是一种新的<code>cookie</code>属性值，用来防止<code>CSRF</code>攻击，具体可看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html</span><br></pre></td></tr></table></figure>
+
+<p>它有两个属性</p>
+<p><code>Strict</code>：严格模式，完全禁止第三方 <code>Cookie</code>，跨站点时，任何情况下都不会发送 <code>Cookie</code>。</p>
+<p><code>Lax</code>：宽松模式，允许<code>Get</code>请求的第三方<code>Cookie</code>，其他请求依然禁止。</p>
+<p><code>Spring-session</code> 默认把<code>SameSite</code>设置成Lat，使用<code>spring session</code>进行<code>session</code>管理，当其他系统需要跨域请求这个系统时就会出现每一次请求的<code>SESIONID</code>都会变得情况。</p>
+<p>需要对生成的<code>cookie</code>进行修改，去掉<code>SameSite</code>属性或者改为<code>None</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> CookieSerializer <span class="title">httpSessionIdResolver</span><span class="params">()</span></span>&#123;</span><br><span class="line">       DefaultCookieSerializer cookieSerializer = <span class="keyword">new</span> DefaultCookieSerializer();</span><br><span class="line">       cookieSerializer.setCookieName(<span class="string">"token"</span>);</span><br><span class="line">       cookieSerializer.setUseHttpOnlyCookie(<span class="keyword">false</span>);</span><br><span class="line">       cookieSerializer.setSameSite(<span class="keyword">null</span>);</span><br><span class="line">       <span class="keyword">return</span> cookieSerializer;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
     
-      <h3 class="timeline-subtitle">2020</h3>
+  </div>
+</aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/%E4%BB%A3%E7%A0%81/"><i class="fa fa-tags"></i>代码</a>
+     
+      <a href="/tags/spring/"><i class="fa fa-tags"></i>spring</a>
+     
+      <a href="/tags/%E6%A1%86%E6%9E%B6/"><i class="fa fa-tags"></i>框架</a>
+     
+      <a href="/tags/spring-session/"><i class="fa fa-tags"></i>spring session</a>
     
-    <div class="timeline-item">
-      <time>2020-01-06</time>
-      <a target="_self" href="/2020/01/06/Windows%E4%B8%8A%E4%BD%BF%E7%94%A8linux%E5%AD%90%E7%B3%BB%E7%BB%9F(WSL)%E4%BD%BF%E7%94%A8Docker/">Windows上使用linux子系统(WSL)使用Docker</a>
     </div>
   
 </div>
+
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -283,16 +344,16 @@
     <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+    <a href="/2020/03/31/hello-world/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     
